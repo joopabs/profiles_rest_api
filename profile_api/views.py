@@ -5,8 +5,10 @@ from rest_framework import status, viewsets
 from profile_api import serializers
 from profile_api import models
 
+
 class HelloApiView(APIView):
     """Test API View"""
+
     serializer_class = serializers.HelloSerializer
 
     def get(self, request, format=None):
@@ -29,10 +31,7 @@ class HelloApiView(APIView):
             message = f"Hello {name}"
             return Response({"message": message})
         else:
-            return Response(
-                serializer.errors,
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, pk=None):
         """Handle updating an object"""
@@ -49,6 +48,7 @@ class HelloApiView(APIView):
 
 class HelloViewSet(viewsets.ViewSet):
     """Test API ViewSet"""
+
     serializer_class = serializers.HelloSerializer
 
     def list(self, request):
@@ -70,10 +70,7 @@ class HelloViewSet(viewsets.ViewSet):
             message = f"Hello {name}!"
             return Response({"message": message})
         else:
-            return Response(
-                serializer.errors,
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, pk=None):
         """Handle getting an object by its ID"""
@@ -94,5 +91,6 @@ class HelloViewSet(viewsets.ViewSet):
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     """Handle creating and updating profiles"""
+
     serializer_class = serializers.UserProfileSerializer
     queryset = models.UserProfile.objects.all()
