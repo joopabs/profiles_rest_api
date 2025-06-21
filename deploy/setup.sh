@@ -9,16 +9,28 @@ PROJECT_BASE_PATH='/usr/local/apps/profiles-rest-api'
 # Set Ubuntu Language
 locale-gen en_GB.UTF-8
 
-# Install Python, SQLite and pip
+# Install Python 3.11, SQLite and pip
 echo "Installing dependencies..."
 apt-get update
-apt-get install -y python3-dev python3-venv sqlite3 python3-pip supervisor nginx git build-essential gcc
+
+# Add deadsnakes PPA for Python 3.11 (if needed)
+apt-get install -y software-properties-common
+add-apt-repository ppa:deadsnakes/ppa -y
+apt-get update
+
+# Install Python 3.11 specifically
+apt-get install -y python3.11 python3.11-dev python3.11-venv python3.11-distutils sqlite3 supervisor nginx git build-essential gcc
+
+# Install pip for Python 3.11
+curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 
 mkdir -p $PROJECT_BASE_PATH
 git clone $PROJECT_GIT_URL $PROJECT_BASE_PATH
 
-python3 -m venv $PROJECT_BASE_PATH/env
+# Create virtual environment with Python 3.11
+python3.11 -m venv $PROJECT_BASE_PATH/env
 
+# Install requirements with Python 3.11
 $PROJECT_BASE_PATH/env/bin/pip install -r $PROJECT_BASE_PATH/requirements.txt uwsgi
 
 # Run migrations
