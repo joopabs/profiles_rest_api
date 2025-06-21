@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from profile_api import models
+from profiles_api import models
 
 
 class HelloSerializer(serializers.Serializer):

@@ -7,9 +7,9 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 from rest_framework.permissions import IsAuthenticated
 
-from profile_api import serializers
-from profile_api import models
-from profile_api import permissions
+from profiles_api import serializers
+from profiles_api import models
+from profiles_api import permissions
 
 class HelloApiView(APIView):
     """Test API View"""
